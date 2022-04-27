@@ -1,0 +1,13 @@
+--- src/Makefile.bk	2022-04-27 09:48:32.150224350 +0300
++++ src/Makefile	2022-04-27 09:48:38.418187917 +0300
+@@ -88,8 +88,8 @@
+ # Override default settings if possible
+ -include .make-settings
+ 
+-FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)
+-FINAL_LDFLAGS=$(LDFLAGS) $(REDIS_LDFLAGS) $(DEBUG)
++FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS) -fPIC
++FINAL_LDFLAGS=$(LDFLAGS) $(REDIS_LDFLAGS) $(DEBUG) -static-pie
+ FINAL_LIBS=-lm
+ DEBUG=-g -ggdb
+ 
