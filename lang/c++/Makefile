@@ -1,4 +1,4 @@
-CC = g++
+CXX = g++
 
 # compiler flags:
 #  -g     - this flag adds debugging information to the executable file
@@ -7,14 +7,15 @@ CFLAGS  = -g -Wall -fPIC
 LDFLAGS = -static-pie
 
 # The build target 
-TARGET = helloworld
+.PHONY: all clean
 
-all: $(TARGET)
+all: helloworld
 
-$(TARGET): $(TARGET).cpp
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
+helloworld: helloworld.o
+
+helloworld.o: helloworld.cpp
 
 clean:
-	$(RM) $(TARGET)
+	-rm -f helloworld
 	-rm -f *~
 
