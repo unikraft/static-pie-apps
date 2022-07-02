@@ -1,0 +1,28 @@
+# Build nginx as static PIE
+
+Build the [nginx](https://www.nginx.com/) web server as a static PIE ELF running on Linux.
+
+## Requirements
+
+Make sure the following packages are installed:
+* gcc >= 8 (required for the `-static-pie` linking option)
+* autotools
+* GNU Make
+* libpcre development files
+* zlib development files
+* OpenSSL development files
+
+For Ubuntu, run the command below to install all requirements:
+
+```
+$ sudo apt install build-essential libpcre2-dev zlib1g-dev libssl-dev
+```
+
+## Build
+
+The `nginx` static PIE ELF is located in the current folder.
+If you want to rebuild it, run:
+
+```
+$ ./build.sh
+```
