@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stddef.h>
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <errno.h>
@@ -24,16 +25,40 @@
 	} while(0)
 
 
+/* print field of stat structure */
+#define print_stat_field_value(field, value)				\
+	printf(" * %-12s value: %10lu, size: %2lu, offset: %2lu\n",	\
+			#field ":", (unsigned long) value,		\
+			sizeof(statbuf.field),				\
+			offsetof(struct stat, field))
+
+#define print_stat_field(field)						\
+	print_stat_field_value(field, statbuf.field);
+
 int main(void)
 {
 	int rc;
+
 	struct stat statbuf;
 
-	rc = stat("copy.sql", &statbuf);
+	rc = stat("file", &statbuf);
 	DIE(rc < 0, "stat");
 
-	printf("ino: %lu, nlink: %lu, size: %lu\n", statbuf.st_ino,
-			statbuf.st_nlink, statbuf.st_size);
+	print_stat_field(st_dev);
+	print_stat_field(st_ino);
+	print_stat_field(st_mode);
+	print_stat_field(st_nlink);
+	print_stat_field(st_uid);
+	print_stat_field(st_gid);
+	print_stat_field(st_rdev);
+	print_stat_field(st_size);
+	print_stat_field(st_blksize);
+	print_stat_field(st_blocks);
+	print_stat_field_value(st_atim, 0);
+	print_stat_field_value(st_mtim, 0);
+	print_stat_field_value(st_ctim, 0);
+
+	printf("\ntotal size: %lu\n", sizeof(statbuf));
 
 	return 0;
 }
