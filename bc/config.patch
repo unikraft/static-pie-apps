@@ -1,0 +1,45 @@
+Only in a: bc.c
+Only in a: bc.o
+Only in a: config.cache
+Only in a: config.h
+Only in a: config.log
+Only in a: config.status
+diff -ur b/configure a/configure
+--- b/configure	2022-06-26 14:16:15.620029852 +0200
++++ a/configure	2022-06-26 14:19:08.599255032 +0200
+@@ -462,10 +462,11 @@
+ fi
+     echo "$ac_t""$ac_cv_prog_gcc_g" 1>&4
+     if test $ac_cv_prog_gcc_g = yes; then
+-      CFLAGS="-g -O"
++      CFLAGS="-g -O -Wall -fPIC"
+     else
+-      CFLAGS="-O"
++      CFLAGS="-O -Wall -fPIC"
+     fi
++    LDFLAGS="-static-pie"
+   fi
+ else
+   GCC=
+Only in a: execute.o
+Only in a: global.o
+Only in a: load.o
+Only in a: main.o
+Only in a: Makefile
+diff -ur b/Makefile.in a/Makefile.in
+--- b/Makefile.in	2022-06-26 14:16:15.616029869 +0200
++++ a/Makefile.in	2022-06-26 14:17:28.311704245 +0200
+@@ -77,7 +77,6 @@
+ #
+ O=o
+ CFLAGS = -O $(INCDIR) $(STDDEFS) @CFLAGS@
+-LDFLAGS = 
+ #
+ # For the PC version of MINIX (K&R compiler), use the following lines.
+ # 
+Only in a: number.o
+Only in a: scan.c
+Only in a: scan.o
+Only in a: storage.o
+Only in a: util.o
+Only in a: y.tab.h
