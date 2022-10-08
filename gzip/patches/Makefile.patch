@@ -1,0 +1,11 @@
+--- Makefile	2022-10-08 11:36:48.031827155 +0300
++++ Makefile-patched	2022-10-08 11:37:18.555740842 +0300
+@@ -1248,7 +1248,7 @@
+ INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
+ INT32_MAX_LT_INTMAX_MAX = 1
+ INT64_MAX_EQ_LONG_MAX = defined _LP64
+-LDFLAGS = 
++LDFLAGS = -static-pie
+ LESS = less
+ LIBGZIP_LIBDEPS = 
+ LIBGZIP_LTLIBDEPS = 
