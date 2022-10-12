@@ -19,7 +19,6 @@ Make sure the following packages are installed:
 If you want to build `OpenJDK`, run:
 
 ```
-
 $ bash build.sh
 ```
 
@@ -28,6 +27,5 @@ This will create a directory named 'out' where the `OpenJDK` will be located.
 If you want to clean everything and rebuild it, run:
 
 ```
-
 $ bash build.sh clean
 ```
