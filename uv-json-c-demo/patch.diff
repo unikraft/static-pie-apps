@@ -1,0 +1,37 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b0d257b..6946093 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -20,6 +20,10 @@ set(SOURCES
+     src/app/json/json-parser.h
+     src/app/json/json-parser.c)
+ 
++add_compile_options(
++    -static-pie
++) 
++
+ #--------------------------------------------------------------
+ # Build binary directories
+ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+@@ -31,10 +35,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake/Modules")
+ 
+ ## LibUV
+-find_package(LibUV  REQUIRED)
++#find_package(LibUV  REQUIRED)
+ 
+ ## Json-C
+-find_package(JSON-C REQUIRED)
++#find_package(JSON-C REQUIRED)
+ 
+ #--------------------------------------------------------------
+ # Target
+@@ -43,5 +47,6 @@ add_executable(${PROJECT_TARGET_NAME} ${SOURCES})
+ target_include_directories(${PROJECT_TARGET_NAME} PUBLIC src/app)
+ target_include_directories(${PROJECT_TARGET_NAME} PUBLIC src/utils)
+ 
+-target_link_libraries(${PROJECT_TARGET_NAME} PUBLIC ${LIBUV_LIBRARIES})
+-target_link_libraries(${PROJECT_TARGET_NAME} PUBLIC ${JSON-C_LIBRARIES})
++target_link_libraries(${PROJECT_TARGET_NAME} -static-pie)
++target_link_libraries(${PROJECT_TARGET_NAME} ${CMAKE_SOURCE_DIR}/libuv/build/libuv_a.a)
++target_link_libraries(${PROJECT_TARGET_NAME} ${CMAKE_SOURCE_DIR}/json-c/build/libjson-c.a)
