@@ -1,0 +1,10 @@
+--- ../MakefilePSqlOriginal	2022-10-10 22:57:37.000000000 +0200
++++ src/bin/psql/Makefile	2022-10-23 16:15:38.758539645 +0200
+@@ -47,7 +47,7 @@
+ all: psql
+ 
+ psql: $(OBJS) | submake-libpq submake-libpgport submake-libpgfeutils
+-	$(CC) $(CFLAGS) $(OBJS) $(LDFLAGS) $(LDFLAGS_EX) $(LIBS) -o $@$(X)
++	$(CC) $(CFLAGS) $(OBJS) -L../../../src/port -L../../../src/common -L../../../src/fe_utils -lpgfeutils -L../../../src/common -lpgcommon -L../../../src/port -lpgport -L../../../src/interfaces/libpq -lpq $(LDFLAGS_EX) $(LIBS) -o $@$(X)
+ 
+ help.o: sql_help.h
