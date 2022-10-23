@@ -6,7 +6,7 @@ Use the `build.sh` script to download and build `psql`.
 The resulting `psql` binary is a static PIE executable loadable using the Unikraft ELF Loader. 
 Launching psql with run_elf_loader, it is required to launch with the `-U <username>` parameter, because Unikraft does not provide a default user to `psql`.
 
-# TODO
+# Postgresql executables which need to be checked before they can be used
 
 
 - initdb
