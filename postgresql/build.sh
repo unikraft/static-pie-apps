@@ -23,5 +23,3 @@ make
 popd > /dev/null 2>&1
 
 ln -fn $(pwd)/postgresql-15.0/src/bin/psql/psql
-
-
