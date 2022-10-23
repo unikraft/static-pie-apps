@@ -6,7 +6,6 @@ Build the [caddy server](https://caddyserver.com/) web server as a static PIE EL
 
 Make sure the following packages are installed:
 * go >= 1.17
-* git
 
 ## Build
 
