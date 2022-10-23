@@ -1,4 +1,5 @@
-# Postgres
+
+# PostgreSQL
 ## Psql
 
 Use the `build.sh` script to download and build `psql`.
