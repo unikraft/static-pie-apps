@@ -1,0 +1,26 @@
+From 01cd6c1734538bb0b4e77f5a918eee78dbd73f1c Mon Sep 17 00:00:00 2001
+From: Ismana Robert <robert.mihai018@gmail.com>
+Date: Sat, 10 Sep 2022 19:37:32 +0300
+Subject: [PATCH] Add static PIE flag
+
+Signed-off-by: Ismana Robert <robert.mihai018@gmail.com>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index d85e67d..1ecaf90 100644
+--- a/Makefile
++++ b/Makefile
+@@ -18,7 +18,7 @@ SHELL=/bin/sh
+ CC=gcc
+ AR=ar
+ RANLIB=ranlib
+-LDFLAGS= 
++LDFLAGS= -static-pie 
+ 
+ BIGFILES=-D_FILE_OFFSET_BITS=64
+ CFLAGS=-Wall -Winline -O2 -g $(BIGFILES)
+-- 
+2.34.1
+
