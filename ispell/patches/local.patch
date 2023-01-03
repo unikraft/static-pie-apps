@@ -1,0 +1,11 @@
+--- local.h.linux	2011-04-19 08:58:54.000000000 +0300
++++ local.h	2022-08-07 17:01:16.667023690 +0300
+@@ -85,5 +85,8 @@
+ /*
+  * Place any locally-required #include statements here
+  */
++#define CFLAGS "-g -O -fPIC -Wall"
++#define LIBES "-static-pie"
++#define TERMLIB "-ltermcap"
+ 
+ #endif /* LOCAL_H_INCLUDED */

@@ -1,0 +1,38 @@
+--- lookup.c	2022-08-07 20:06:03.280615151 +0300
++++ lookup2.c	2022-08-07 20:04:43.951945513 +0300
+@@ -246,15 +246,26 @@
+ 	}
+     else
+ 	{
+-	if (read (hashfd, hashstrings, (unsigned) hashheader.stringsize)
+-	    != (int) hashheader.stringsize
+-	  ||  read (hashfd, (char *) hashtbl,
+-	      (unsigned) hashheader.tblsize * sizeof (struct dent))
+-	    != (int) (hashheader.tblsize * sizeof (struct dent)))
+-	    {
+-	    (void) fprintf (stderr, LOOKUP_C_BAD_FORMAT, MAYBE_CR (stderr));
+-	    return (-1);
+-	    }
++	int hashstring_readbytes = read (hashfd, hashstrings, (unsigned) hashheader.stringsize);
++	if (hashstring_readbytes != (int) hashheader.stringsize)
++	{
++	(void) fprintf (stderr, LOOKUP_C_BAD_FORMAT, MAYBE_CR (stderr));
++	return (-1);
++	}
++
++	int hashtbl_readbytes = read (hashfd, (char *) hashtbl,
++		(unsigned) hashheader.tblsize * sizeof (struct dent));
++	while (hashtbl_readbytes < (int) (hashheader.tblsize * sizeof (struct dent)))
++	{
++		int numbytes = read (hashfd, (char *) hashtbl + hashtbl_readbytes,
++			(unsigned) (hashheader.tblsize * sizeof (struct dent) - hashtbl_readbytes));
++		if (numbytes < 0)
++		{
++			(void) fprintf (stderr, LOOKUP_C_BAD_FORMAT, MAYBE_CR (stderr));
++			return (-1);
++		}
++		hashtbl_readbytes += numbytes;
++	}
+ 	}
+     if ((unsigned) read (hashfd, (char *) sflaglist,
+ 	(unsigned) (numsflags + numpflags) * sizeof (struct flagent))

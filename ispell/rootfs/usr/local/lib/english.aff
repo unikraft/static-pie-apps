@@ -1,0 +1,612 @@
+#
+# $Id: english.aff,v 1.26 2020-12-30 22:20:19-08 geoff Exp $
+#
+# Copyright 1992, 1993, 1999, 2000, 2001, 2005, Geoff Kuenning, Claremont, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. The code that causes the 'ispell -v' command to display a prominent
+#    link to the official ispell Web site may not be removed.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+#
+#	Affix table for English
+#
+
+nroffchars	().\\*
+texchars	()\[]{}<\>\\$*.%
+
+# First we declare the character set.  Since it's English, it would be
+# easy, except that English likes to borrow accents (notably
+# acute/grave) from other languages.  To be safe, we'll declare a majority
+# of ISO Latin-1.  However, we do not declare the German "eszett"
+# (sharp S) in capitalized form, because ispell can't handle a capital
+# letter that has a different length than a lowercase one (the capital
+# sharp s was only added to German orthography in 2017).
+#
+# In keeping with the march of progress, UTF-8 is the default
+# encoding.  This helps us avoid some of the more obviously difficult
+# problems involving encoding acute and grave accents as apostrophes.
+#
+# We also declare the apostrophe, so that possessives can
+# be handled.  We declare it as a boundary character, so that quoting with
+# single quotes doesn't confuse things.  The apostrophe is the only
+# character that gets such treatment.
+#
+# We declare the apostrophe first so that "Jon's" collates before "Jonas".
+# (This is the way ASCII does it).
+
+#
+# UTF-8
+#
+defstringtype "utf8" "nroff" ".txt"
+
+options raw_display squeeze_strings
+
+boundarychars '
+
+wordchars       a        A
+stringchar      \xC3\xA0 \xC3\x80       # àÀ Latin letter A with grave
+stringchar      \xC3\xA1 \xC3\x81       # áÁ Latin letter A with acute
+stringchar      \xC3\xA2 \xC3\x82       # âÂ Latin letter A with circumflex
+stringchar      \xC3\xA3 \xC3\x83       # ãÃ Latin letter A with tilde
+stringchar      \xC3\xA4 \xC3\x84       # äÄ Latin letter A with diaeresis
+stringchar      \xC3\xA5 \xC3\x85       # åÅ Latin letter A with ring above
+stringchar      \xC3\xA6 \xC3\x86       # æÆ Latin letter AE
+wordchars       [bc]     [BC]
+stringchar      \xC3\xA7 \xC3\x87       # çÇ Latin letter C with cedilla
+wordchars       [de]     [DE]
+stringchar      \xC3\xA8 \xC3\x88       # èÈ Latin letter E with grave
+stringchar      \xC3\xA9 \xC3\x89       # éÉ Latin letter E with acute
+stringchar      \xC3\xAA \xC3\x8A       # êÊ Latin letter E with circumflex
+stringchar      \xC3\xAB \xC3\x8B       # ëË Latin letter E with diaeresis
+wordchars       [f-i]    [F-I]
+stringchar      \xC3\xAC \xC3\x8C       # ìÌ Latin letter I with grave
+stringchar      \xC3\xAD \xC3\x8D       # íÍ Latin letter I with acute
+stringchar      \xC3\xAE \xC3\x8E       # îÎ Latin letter I with circumflex
+stringchar      \xC3\xAF \xC3\x8F       # ïÏ Latin letter I with diaeresis
+stringchar      \xC3\xB0 \xC3\x90       # ðÐ Latin letter eth
+wordchars       [j-n]    [J-N]
+stringchar      \xC3\xB1 \xC3\x91       # ñÑ Latin letter N with tilde
+wordchars       o       O
+stringchar      \xC3\xB2 \xC3\x92       # òÒ Latin letter O with grave
+stringchar      \xC3\xB3 \xC3\x93       # óÓ Latin letter O with acute
+stringchar      \xC3\xB4 \xC3\x94       # ôÔ Latin letter O with circumflex
+stringchar      \xC3\xB5 \xC3\x95       # õÕ Latin letter O with tilde
+stringchar      \xC3\xB6 \xC3\x96       # öÖ Latin letter O with diaeresis
+stringchar      \xC3\xB8 \xC3\x98       # øØ Latin letter O with stroke
+wordchars       [p-s]    [P-S]
+# See comments about eszett above
+# stringchar    \xC3\x9F SS             # ß Latin small letter sharp s
+# stringchar    \xC3\x9F \xE1\xBA\x9E   # ß Latin letter sharp S
+stringchar      \xC3\x9F                # ß Latin letter sharp S
+wordchars       [tu]     [TU]
+stringchar      \xC3\xB9 \xC3\x99       # ùÙ Latin letter U with grave
+stringchar      \xC3\xBA \xC3\x9A       # úÚ Latin letter U with acute
+stringchar      \xC3\xBB \xC3\x9B       # ûÛ Latin letter U with circumflex
+stringchar      \xC3\xBC \xC3\x9C       # üÜ Latin letter U with diaeresis
+wordchars       [v-y]    [V-Y]
+stringchar      \xC3\xBD \xC3\x9D       # ýÝ Latin letter Y with acute
+stringchar      \xC3\xBF \xC5\xB8       # ÿŸ Latin letter Y with diaeresis
+wordchars       z        Z
+stringchar      \xC3\xBE \xC3\x9E       # þÞ Latin letter Thorn
+
+altstringtype "latin1" "nroff" ".list" ".txt"
+
+altstringchar   \xE0    \xC3\xA0        # à Latin letter a with grave
+altstringchar   \xC0    \xC3\x80        # À Latin letter A with grave
+altstringchar   \xE1    \xC3\xA1        # á Latin letter a with acute
+altstringchar   \xC1    \xC3\x81        # Á Latin letter A with acute
+altstringchar   \xE2    \xC3\xA2        # â Latin letter a with circumflex
+altstringchar   \xC2    \xC3\x82        # Â Latin letter A with circumflex
+altstringchar   \xE3    \xC3\xA3        # ã Latin letter a with tilde
+altstringchar   \xC3    \xC3\x83        # Ã Latin letter A with tilde
+altstringchar   \xE4    \xC3\xA4        # ä Latin letter a with diaeresis
+altstringchar   \xC4    \xC3\x84        # Ä Latin letter A with diaeresis
+altstringchar   \xE5    \xC3\xA5        # å Latin letter a with ring above
+altstringchar   \xC5    \xC3\x85        # Å Latin letter A with ring above
+altstringchar   \xE6    \xC3\xA6        # æ Latin letter ae
+altstringchar   \xC6    \xC3\x86        # Æ Latin letter AE
+altstringchar   \xE7    \xC3\xA7        # ç Latin letter c with cedilla
+altstringchar   \xC7    \xC3\x87        # Ç Latin letter C with cedilla
+altstringchar   \xE8    \xC3\xA8        # è Latin letter e with grave
+altstringchar   \xC8    \xC3\x88        # È Latin letter E with grave
+altstringchar   \xE9    \xC3\xA9        # é Latin letter e with acute
+altstringchar   \xC9    \xC3\x89        # É Latin letter E with acute
+altstringchar   \xEA    \xC3\xAA        # ê Latin letter e with circumflex
+altstringchar   \xCA    \xC3\x8A        # Ê Latin letter E with circumflex
+altstringchar   \xEB    \xC3\xAB        # ë Latin letter e with diaeresis
+altstringchar   \xCB    \xC3\x8B        # Ë Latin letter E with diaeresis
+altstringchar   \xEC    \xC3\xAC        # ì Latin letter i with grave
+altstringchar   \xCC    \xC3\x8C        # Ì Latin letter I with grave
+altstringchar   \xED    \xC3\xAD        # í Latin letter i with acute
+altstringchar   \xCD    \xC3\x8D        # Í Latin letter I with acute
+altstringchar   \xEE    \xC3\xAE        # î Latin letter i with circumflex
+altstringchar   \xCE    \xC3\x8E        # Î Latin letter I with circumflex
+altstringchar   \xEF    \xC3\xAF        # ï Latin letter i with diaeresis
+altstringchar   \xCF    \xC3\x8F        # Ï Latin letter I with diaeresis
+altstringchar   \xF0    \xC3\xB0        # ð Latin letter eth
+altstringchar   \xD0    \xC3\x90        # Ð Latin letter Eth
+altstringchar   \xF1    \xC3\xB1        # ñ Latin letter n with tilde
+altstringchar   \xD1    \xC3\x91        # Ñ Latin letter N with tilde
+altstringchar   \xF2    \xC3\xB2        # ò Latin letter o with grave
+altstringchar   \xD2    \xC3\x92        # Ò Latin letter O with grave
+altstringchar   \xF3    \xC3\xB3        # ó Latin letter o with acute
+altstringchar   \xD3    \xC3\x93        # Ó Latin letter O with acute
+altstringchar   \xF4    \xC3\xB4        # ô Latin letter o with circumflex
+altstringchar   \xD4    \xC3\x94        # Ô Latin letter O with circumflex
+altstringchar   \xF5    \xC3\xB5        # õ Latin letter o with tilde
+altstringchar   \xD5    \xC3\x95        # Õ Latin letter O with tilde
+altstringchar   \xF6    \xC3\xB6        # ö Latin letter o with diaeresis
+altstringchar   \xD6    \xC3\x96        # Ö Latin letter O with diaeresis
+altstringchar   \xF8    \xC3\xB8        # ø Latin letter o with stroke
+altstringchar   \xD8    \xC3\x98        # Ø Latin letter O with stroke
+altstringchar   \xDF    \xC3\x9F        # ß Latin small letter sharp s
+altstringchar   \xF9    \xC3\xB9        # ù Latin letter u with grave
+altstringchar   \xD9    \xC3\x99        # Ù Latin letter U with grave
+altstringchar   \xFA    \xC3\xBA        # ú Latin letter u with acute
+altstringchar   \xDA    \xC3\x9A        # Ú Latin letter U with acute
+altstringchar   \xFB    \xC3\xBB        # û Latin letter u with circumflex
+altstringchar   \xDB    \xC3\x9B        # Û Latin letter U with circumflex
+altstringchar   \xFC    \xC3\xBC        # ü Latin letter u with diaeresis
+altstringchar   \xDC    \xC3\x9C        # Ü Latin letter U with diaeresis
+altstringchar   \xFD    \xC3\xBD        # ý Latin letter y with acute
+altstringchar   \xDD    \xC3\x9D        # Ý Latin letter Y with acute
+altstringchar   \xFF    \xC3\xBF        # ÿ Latin letter y with diaeresis
+altstringchar   Y       \xC5\xB8        # Ÿ Latin letter Y with diaeresis
+altstringchar   \xFE    \xC3\xBE        # þ latin letter thorn
+altstringchar   \xDE    \xC3\x9E        # Þ Latin letter Thorn
+
+#
+# TeX/LaTeX
+#
+altstringtype "tex" "TeX" ".tex" ".bib"
+
+altstringchar   \\`a    \xC3\xA0
+altstringchar   \\`A    \xC3\x80        # àÀ Latin letter A with grave
+altstringchar   \\'a    \xC3\xA1
+altstringchar   \\'A    \xC3\x81        # áÁ Latin letter A with acute
+altstringchar   \\^a    \xC3\xA2
+altstringchar   \\^A    \xC3\x82        # âÂ Latin letter A with circumflex
+altstringchar   \\~a    \xC3\xA3
+altstringchar   \\~A    \xC3\x83        # ãÃ Latin letter A with tilde
+altstringchar   \\\"a   \xC3\xA4
+altstringchar   \\\"A   \xC3\x84        # äÄ Latin letter A with diaeresis
+altstringchar   {\\aa}  \xC3\xA5
+altstringchar   {\\AA}  \xC3\x85        # åÅ Latin letter A with ring above
+altstringchar   {\\ae}  \xC3\xA6
+altstringchar   {\\AE}  \xC3\x86        # æÆ Latin letter AE
+altstringchar   \\c{c}  \xC3\xA7
+altstringchar   \\c{C}  \xC3\x87        # çÇ Latin letter C with cedilla
+altstringchar   \\`e    \xC3\xA8
+altstringchar   \\`E    \xC3\x88        # èÈ Latin letter E with grave
+altstringchar   \\'e    \xC3\xA9
+altstringchar   \\'E    \xC3\x89        # éÉ Latin letter E with acute
+altstringchar   \\^e    \xC3\xAA
+altstringchar   \\^E    \xC3\x8A        # êÊ Latin letter E with circumflex
+altstringchar   \\\"e   \xC3\xAB
+altstringchar   \\\"E   \xC3\x8B        # ëË Latin letter E with diaeresis
+altstringchar   \\`{\\i} \xC3\xAC
+altstringchar   \\`I    \xC3\x8C        # ìÌ Latin letter I with grave
+altstringchar   \\'{\\i} \xC3\xAD
+altstringchar   \\'I    \xC3\x8D        # íÍ Latin letter I with acute
+altstringchar   \\^{\\i} \xC3\xAE
+altstringchar   \\^I    \xC3\x8E        # îÎ Latin letter I with circumflex
+altstringchar   \\\"{\\i} \xC3\xAF
+altstringchar   \\\"I   \xC3\x8F        # ïÏ Latin letter I with diaeresis
+# (not listed) Latin letter eth
+# TeX doesn't define it, but ispell requires us to provide *something*.
+altstringchar   {\\eth} \xC3\xB0
+altstringchar   {\\Eth} \xC3\x90        # ðÐ Latin letter eth
+altstringchar   \\~n    \xC3\xB1
+altstringchar   \\~N    \xC3\x91        # ñÑ Latin letter N with tilde
+altstringchar   \\`o    \xC3\xB2
+altstringchar   \\`O    \xC3\x92        # òÒ Latin letter O with grave
+altstringchar   \\'o    \xC3\xB3
+altstringchar   \\'O    \xC3\x93        # óÓ Latin letter O with acute
+altstringchar   \\^o    \xC3\xB4
+altstringchar   \\^O    \xC3\x94        # ôÔ Latin letter O with circumflex
+altstringchar   \\~o    \xC3\xB5
+altstringchar   \\~O    \xC3\x95        # õÕ Latin letter O with tilde
+altstringchar   \\\"o   \xC3\xB6
+altstringchar   \\\"O   \xC3\x96        # öÖ Latin letter O with diaeresis
+altstringchar   {\\o}   \xC3\xB8
+altstringchar   {\\O}   \xC3\x98        # øØ Latin letter O with stroke
+altstringchar   {\\ss}  \xC3\x9F        # ß Latin small letter sharp s
+altstringchar   \\`u    \xC3\xB9
+altstringchar   \\`U    \xC3\x99        # ùÙ Latin letter U with grave
+altstringchar   \\'u    \xC3\xBA
+altstringchar   \\'U    \xC3\x9A        # úÚ Latin letter U with acute
+altstringchar   \\^u    \xC3\xBB
+altstringchar   \\^U    \xC3\x9B        # ûÛ Latin letter U with circumflex
+altstringchar   \\\"u   \xC3\xBC
+altstringchar   \\\"U   \xC3\x9C        # üÜ Latin letter U with diaeresis
+altstringchar   \\'y    \xC3\xBD
+altstringchar   \\'Y    \xC3\x9D        # ýÝ Latin letter Y with acute
+altstringchar   \\\"y   \xC3\xBF
+altstringchar   \\\"Y   \xC3\xB8        # ÿŸ Latin letter Y with diaeresis
+# (not listed) Latin letter thorn
+# TeX doesn't define it, but ispell requires us to provide *something*.
+altstringchar   {\\thorn} \xC3\xBE
+altstringchar   {\\Thorn} \xC3\x9E      # þÞ Latin letter Thorn
+
+#
+# N/Troff with -ms/-me/man macro packages.  Some of these are only
+# supported by the FSF versions of the packages.
+#
+altstringtype "nroff" "nroff" ".nr" ".ms" ".me" ".man"
+
+altstringchar   a\\*`   \xC3\xA0
+altstringchar   A\\*`   \xC3\x80        # àÀ Latin letter A with grave
+altstringchar   a\\*'   \xC3\xA1
+altstringchar   A\\*'   \xC3\x81        # áÁ Latin letter A with acute
+altstringchar   a\\*^   \xC3\xA2
+altstringchar   A\\*^   \xC3\x82        # âÂ Latin letter A with circumflex
+altstringchar   a\\*~   \xC3\xA3
+altstringchar   A\\*~   \xC3\x83        # ãÃ Latin letter A with tilde
+altstringchar   a\\*\:  \xC3\xA4
+altstringchar   A\\*\:  \xC3\x84        # äÄ Latin letter A with diaeresis
+altstringchar   a\\*o   \xC3\xA5
+altstringchar   A\\*o   \xC3\x85        # åÅ Latin letter A with ring above
+altstringchar   \\(ae   \xC3\xA6
+altstringchar   \\(AE   \xC3\x86        # æÆ Latin letter AE
+altstringchar   c\\*\,  \xC3\xA7
+altstringchar   C\\*\,  \xC3\x87        # çÇ Latin letter C with cedilla
+altstringchar   e\\*`   \xC3\xA8
+altstringchar   E\\*`   \xC3\x88        # èÈ Latin letter E with grave
+altstringchar   e\\*'   \xC3\xA9
+altstringchar   E\\*'   \xC3\x89        # éÉ Latin letter E with acute
+altstringchar   e\\*^   \xC3\xAA
+altstringchar   E\\*^   \xC3\x8A        # êÊ Latin letter E with circumflex
+altstringchar   e\\*\:  \xC3\xAB
+altstringchar   E\\*\:  \xC3\x8B        # ëË Latin letter E with diaeresis
+altstringchar   i\\*`   \xC3\xAC
+altstringchar   I\\*`   \xC3\x8C        # ìÌ Latin letter I with grave
+altstringchar   i\\*'   \xC3\xAD
+altstringchar   I\\*'   \xC3\x8D        # íÍ Latin letter I with acute
+altstringchar   i\\*^   \xC3\xAE
+altstringchar   I\\*^   \xC3\x8E        # îÎ Latin letter I with circumflex
+altstringchar   i\\*\:  \xC3\xAF
+altstringchar   I\\*\:  \xC3\x8F        # ïÏ Latin letter I with diaeresis
+# (not listed) Latin letter eth
+# nroff doesn't define it, but ispell requires us to provide *something*.
+altstringchar   \*(et   \xC3\xB0
+altstringchar   \*(ET   \xC3\x90        # ðÐ Latin letter eth
+altstringchar   n\\*~   \xC3\xB1
+altstringchar   N\\*~   \xC3\x91        # ñÑ Latin letter N with tilde
+altstringchar   o\\*`   \xC3\xB2
+altstringchar   O\\*`   \xC3\x92        # òÒ Latin letter O with grave
+altstringchar   o\\*'   \xC3\xB3
+altstringchar   O\\*'   \xC3\x93        # óÓ Latin letter O with acute
+altstringchar   o\\*^   \xC3\xB4
+altstringchar   O\\*^   \xC3\x94        # ôÔ Latin letter O with circumflex
+altstringchar   o\\*~   \xC3\xB5
+altstringchar   O\\*~   \xC3\x95        # õÕ Latin letter O with tilde
+altstringchar   o\\*\:  \xC3\xB6
+altstringchar   O\\*\:  \xC3\x96        # öÖ Latin letter O with diaeresis
+altstringchar   o\\*/   \xC3\xB8
+altstringchar   O\\*/   \xC3\x98        # øØ Latin letter O with stroke
+altstringchar   \\*8    \xC3\x9F        # ß Latin small letter sharp s
+altstringchar   u\\*`   \xC3\xB9
+altstringchar   U\\*`   \xC3\x99        # ùÙ Latin letter U with grave
+altstringchar   u\\*'   \xC3\xBA
+altstringchar   U\\*'   \xC3\x9A        # úÚ Latin letter U with acute
+altstringchar   u\\*^   \xC3\xBB
+altstringchar   U\\*^   \xC3\x9B        # ûÛ Latin letter U with circumflex
+altstringchar   u\\*\:  \xC3\xBC
+altstringchar   U\\*\:  \xC3\x9C        # üÜ Latin letter U with diaeresis
+altstringchar   y\\*'   \xC3\xBD
+altstringchar   Y\\*'   \xC3\x9D        # ýÝ Latin letter Y with acute
+altstringchar   y\\*\:  \xC3\xBF
+altstringchar   Y\\*\:  \xC3\xB8        # ÿŸ Latin letter Y with diaeresis
+# (not listed) Latin letter thorn
+# nroff doesn't define it, but ispell requires us to provide *something*.
+altstringchar   \*(th   \xC3\xBE
+altstringchar   \*(TH   \xC3\x9E        # þÞ Latin letter Thorn
+
+#
+# N/Troff with -mm macros.  Some of these are not actually supported
+# by nroff.
+#
+altstringtype "-mm" "nroff" ".mm"
+
+altstringchar   a\\*`   \xC3\xA0
+altstringchar   A\\*`   \xC3\x80        # àÀ Latin letter A with grave
+altstringchar   a\\*'   \xC3\xA1
+altstringchar   A\\*'   \xC3\x81        # áÁ Latin letter A with acute
+altstringchar   a\\*^   \xC3\xA2
+altstringchar   A\\*^   \xC3\x82        # âÂ Latin letter A with circumflex
+altstringchar   a\\*~   \xC3\xA3
+altstringchar   A\\*~   \xC3\x83        # ãÃ Latin letter A with tilde
+altstringchar   a\\*\:  \xC3\xA4
+altstringchar   A\\*;   \xC3\x84        # äÄ Latin letter A with diaeresis
+altstringchar   a\\*o   \xC3\xA5
+altstringchar   A\\*o   \xC3\x85        # åÅ Latin letter A with ring above
+altstringchar   \\(ae   \xC3\xA6
+altstringchar   \\(AE   \xC3\x86        # æÆ Latin letter AE
+altstringchar   c\\*\,  \xC3\xA7
+altstringchar   C\\*\,  \xC3\x87        # çÇ Latin letter C with cedilla
+altstringchar   e\\*`   \xC3\xA8
+altstringchar   E\\*`   \xC3\x88        # èÈ Latin letter E with grave
+altstringchar   e\\*'   \xC3\xA9
+altstringchar   E\\*'   \xC3\x89        # éÉ Latin letter E with acute
+altstringchar   e\\*^   \xC3\xAA
+altstringchar   E\\*^   \xC3\x8A        # êÊ Latin letter E with circumflex
+altstringchar   e\\*\:  \xC3\xAB
+altstringchar   E\\*;   \xC3\x8B        # ëË Latin letter E with diaeresis
+altstringchar   i\\*`   \xC3\xAC
+altstringchar   I\\*`   \xC3\x8C        # ìÌ Latin letter I with grave
+altstringchar   i\\*'   \xC3\xAD
+altstringchar   I\\*'   \xC3\x8D        # íÍ Latin letter I with acute
+altstringchar   i\\*^   \xC3\xAE
+altstringchar   I\\*^   \xC3\x8E        # îÎ Latin letter I with circumflex
+altstringchar   i\\*\:  \xC3\xAF
+altstringchar   I\\*;   \xC3\x8F        # ïÏ Latin letter I with diaeresis
+# (not listed) Latin letter eth
+# nroff doesn't define it, but ispell requires us to provide *something*.
+altstringchar   \*(et   \xC3\xB0
+altstringchar   \*(ET   \xC3\x90        # ðÐ Latin letter eth
+altstringchar   n\\*~   \xC3\xB1
+altstringchar   N\\*~   \xC3\x91        # ñÑ Latin letter N with tilde
+altstringchar   o\\*`   \xC3\xB2
+altstringchar   O\\*`   \xC3\x92        # òÒ Latin letter O with grave
+altstringchar   o\\*'   \xC3\xB3
+altstringchar   O\\*'   \xC3\x93        # óÓ Latin letter O with acute
+altstringchar   o\\*^   \xC3\xB4
+altstringchar   O\\*^   \xC3\x94        # ôÔ Latin letter O with circumflex
+altstringchar   o\\*~   \xC3\xB5
+altstringchar   O\\*~   \xC3\x95        # õÕ Latin letter O with tilde
+altstringchar   o\\*\:  \xC3\xB6
+altstringchar   O\\*;   \xC3\x96        # öÖ Latin letter O with diaeresis
+altstringchar   o\\*/   \xC3\xB8
+altstringchar   O\\*/   \xC3\x98        # øØ Latin letter O with stroke
+altstringchar   \\*(ss  \xC3\x9F        # ß Latin small letter sharp s
+altstringchar   u\\*`   \xC3\xB9
+altstringchar   U\\*`   \xC3\x99        # ùÙ Latin letter U with grave
+altstringchar   u\\*'   \xC3\xBA
+altstringchar   U\\*'   \xC3\x9A        # úÚ Latin letter U with acute
+altstringchar   u\\*^   \xC3\xBB
+altstringchar   U\\*^   \xC3\x9B        # ûÛ Latin letter U with circumflex
+altstringchar   u\\*\:  \xC3\xBC
+altstringchar   U\\*;   \xC3\x9C        # üÜ Latin letter U with diaeresis
+altstringchar   y\\*'   \xC3\xBD
+altstringchar   Y\\*'   \xC3\x9D        # ýÝ Latin letter Y with acute
+altstringchar   y\\*\:  \xC3\xBF
+altstringchar   Y\\*\:  \xC3\xB8        # ÿŸ Latin letter Y with diaeresis
+# (not listed) Latin letter thorn
+# nroff doesn't define it, but ispell requires us to provide *something*.
+altstringchar   \*(th   \xC3\xBE
+altstringchar   \*(TH   \xC3\x9E        # þÞ Latin letter Thorn
+
+#
+# HTML/SGML/XML
+#
+altstringtype "html" "html" ".html" ".htm" ".shtml" ".xml"
+
+altstringchar   &agrave;     \xC3\xA0
+altstringchar   &Agrave;     \xC3\x80        # àÀ Latin letter A with grave
+altstringchar   &aacute;     \xC3\xA1
+altstringchar   &Aacute;     \xC3\x81        # áÁ Latin letter A with acute
+altstringchar   &acirc;      \xC3\xA2
+altstringchar   &Acirc;      \xC3\x82        # âÂ Latin letter A with circumflex
+altstringchar   &atilde;     \xC3\xA3
+altstringchar   &Atilde;     \xC3\x83        # ãÃ Latin letter A with tilde
+altstringchar   &auml;       \xC3\xA4
+altstringchar   &Auml;       \xC3\x84        # äÄ Latin letter A with diaeresis
+altstringchar   &acirc;      \xC3\xA5
+altstringchar   &Acirc;      \xC3\x85        # åÅ Latin letter A with ring above
+altstringchar   &aelig;      \xC3\xA6
+altstringchar   &AElig;      \xC3\x86        # æÆ Latin letter AE
+altstringchar   &ccedil;     \xC3\xA7
+altstringchar   &Ccedil;     \xC3\x87        # çÇ Latin letter C with cedilla
+altstringchar   &egrave;     \xC3\xA8
+altstringchar   &Egrave;     \xC3\x88        # èÈ Latin letter E with grave
+altstringchar   &eacute;     \xC3\xA9
+altstringchar   &Eacute;     \xC3\x89        # éÉ Latin letter E with acute
+altstringchar   &ecirc;      \xC3\xAA
+altstringchar   &Ecirc;      \xC3\x8A        # êÊ Latin letter E with circumflex
+altstringchar   &euml;       \xC3\xAB
+altstringchar   &Euml;       \xC3\x8B        # ëË Latin letter E with diaeresis
+altstringchar   &igrave;     \xC3\xAC
+altstringchar   &Igrave;     \xC3\x8C        # ìÌ Latin letter I with grave
+altstringchar   &iacute;     \xC3\xAD
+altstringchar   &Iacute;     \xC3\x8D        # íÍ Latin letter I with acute
+altstringchar   &icirc;      \xC3\xAE
+altstringchar   &Icirc;      \xC3\x8E        # îÎ Latin letter I with circumflex
+altstringchar   &iuml;       \xC3\xAF
+altstringchar   &Iuml;       \xC3\x8F        # ïÏ Latin letter I with diaeresis
+altstringchar   &eth;        \xC3\xB0
+altstringchar   &ETH;        \xC3\x90        # ðÐ Latin letter eth
+altstringchar   &ntilde;     \xC3\xB1
+altstringchar   &Ntilde;     \xC3\x91        # ñÑ Latin letter N with tilde
+altstringchar   &ograve;     \xC3\xB2
+altstringchar   &Ograve;     \xC3\x92        # òÒ Latin letter O with grave
+altstringchar   &oacute;     \xC3\xB3
+altstringchar   &Oacute;     \xC3\x93        # óÓ Latin letter O with acute
+altstringchar   &ocirc;      \xC3\xB4
+altstringchar   &Ocirc;      \xC3\x94        # ôÔ Latin letter O with circumflex
+altstringchar   &otilde;     \xC3\xB5
+altstringchar   &Otilde;     \xC3\x95        # õÕ Latin letter O with tilde
+altstringchar   &ouml;       \xC3\xB6
+altstringchar   &Ouml;       \xC3\x96        # öÖ Latin letter O with diaeresis
+altstringchar   &oslash;     \xC3\xB8
+altstringchar   &Oslash;     \xC3\x98        # øØ Latin letter O with stroke
+altstringchar   &szlig;      \xC3\x9F        # ß Latin small letter sharp s
+altstringchar   &ugrave;     \xC3\xB9
+altstringchar   &Ugrave;     \xC3\x99        # ùÙ Latin letter U with grave
+altstringchar   &uacute;     \xC3\xBA
+altstringchar   &Uacute;     \xC3\x9A        # úÚ Latin letter U with acute
+altstringchar   &ucirc;      \xC3\xBB
+altstringchar   &Ucirc;      \xC3\x9B        # ûÛ Latin letter U with circumflex
+altstringchar   &uuml;       \xC3\xBC
+altstringchar   &Uuml;       \xC3\x9C        # üÜ Latin letter U with diaeresis
+altstringchar   &yacute;     \xC3\xBD
+altstringchar   &Yacute;     \xC3\x9D        # ýÝ Latin letter Y with acute
+altstringchar   &yuml;       \xC3\xBF
+altstringchar   &Yuml;       \xC3\xB8      # ÿŸ Latin letter Y with diaeresis
+altstringchar   &thorn;      \xC3\xBE
+altstringchar   &THORN;      \xC3\x9E        # þÞ Latin letter thorn
+
+# Here's a record of flags used, in case you want to add new ones.
+# Right now, we fit within the minimal MASKBITS definition.
+#
+#            ABCDEFGHIJKLMNOPQRSTUVWXYZ
+# Used:      *  *  ****  ** * ***** ***
+#            A  D  GHIJ  MN P RSTUV XYZ
+# Available:  -- --    --  - -     -
+#             BC EF    KL  O Q     W
+
+# Now the prefix table.  There are only three prefixes that are truly
+# frequent in English, and none of them seem to need conditional variations.
+#
+prefixes
+
+flag *A:
+    .		>	RE		# As in enter > reenter
+
+flag *I:
+    .		>	IN		# As in disposed > indisposed
+
+flag *U:
+    .		>	UN		# As in natural > unnatural
+
+# Finally, the suffixes.  These are exactly the suffixes that came out
+# with the original "ispell";  I haven't tried to improve them.  The only
+# thing I did besides translate them was to add selected cross-product flags.
+#
+suffixes
+
+flag V:
+    E		>	-E,IVE		# As in create > creative
+    [^E]	>	IVE		# As in prevent > preventive
+
+flag *N:
+    E		>	-E,ION		# As in create > creation
+    Y		>	-Y,ICATION	# As in multiply > multiplication
+    [^EY]	>	EN		# As in fall > fallen
+
+flag *X:
+    E		>	-E,IONS		# As in create > creations
+    Y		>	-Y,ICATIONS	# As in multiply > multiplications
+    [^EY]	>	ENS		# As in weak > weakens
+
+flag H:
+    Y		>	-Y,IETH		# As in twenty > twentieth
+    [^Y]	>	TH		# As in hundred > hundredth
+
+flag *Y:
+    Y		>	-Y,ILY		# As in messy > messily
+    [^Y]	>	LY		# As in quick > quickly
+
+flag *G:
+    E		>	-E,ING		# As in file > filing
+    [^E]	>	ING		# As in cross > crossing
+
+flag *J:
+    E		>	-E,INGS		# As in file > filings
+    [^E]	>	INGS		# As in cross > crossings
+
+flag *D:
+    E		>	D		# As in create > created
+    [^AEIOU]Y	>	-Y,IED		# As in imply > implied
+    [^EY]	>	ED		# As in cross > crossed
+    [AEIOU]Y	>	ED		# As in convey > conveyed
+
+flag T:
+    E		>	ST		# As in late > latest
+    [^AEIOU]Y	>	-Y,IEST		# As in dirty > dirtiest
+    [AEIOU]Y	>	EST		# As in gray > grayest
+    [^EY]	>	EST		# As in small > smallest
+
+flag *R:
+    E		>	R		# As in skate > skater
+    [^AEIOU]Y	>	-Y,IER		# As in multiply > multiplier
+    [AEIOU]Y	>	ER		# As in convey > conveyer
+    [^EY]	>	ER		# As in build > builder
+
+flag *Z:
+    E		>	RS		# As in skate > skaters
+    [^AEIOU]Y	>	-Y,IERS		# As in multiply > multipliers
+    [AEIOU]Y	>	ERS		# As in convey > conveyers
+    [^EY]	>	ERS		# As in build > builders
+
+flag *S:
+    [^AEIOU]Y	>	-Y,IES		# As in imply > implies
+    [AEIOU]Y	>	S		# As in convey > conveys
+    [CS]H	>	ES		# As in lash > lashes
+    [^CS]H	>	S		# As in cough > coughs
+    [SXZ]	>	ES		# As in fix > fixes
+    [^SXZHY]	>	S		# As in bat > bats
+
+flag *P:
+    [^AEIOU]Y	>	-Y,INESS	# As in cloudy > cloudiness
+    [AEIOU]Y	>	NESS		# As in gray > grayness
+    [^Y]	>	NESS		# As in late > lateness
+
+flag *M:
+    .		>	'S		# As in dog > dog's
+
+# $Log: english.aff,v $
+# Revision 1.26  2020-12-30 22:20:19-08  geoff
+# Add UTF-8 options to the default character set.
+#
+# Revision 1.25  2020-12-23 16:26:37-08  geoff
+# Switch to UTF-8 as the default character encoding.
+#
+# Revision 1.24  2015-02-07 23:59:51-08  geoff
+# Correct the suffix generation for words ending in TH.
+#
+# Revision 1.23  2005/04/21 14:06:40  geoff
+# Add UTF-8 as an encoding option.
+#
+# Revision 1.22  2005/04/13 22:52:37  geoff
+# Update the license.  Add expanded rules for LY and ES.
+#
+# Revision 1.21  2001/07/25 21:51:47  geoff
+# *** empty log message ***
+#
+# Revision 1.20  2001/07/23 20:43:37  geoff
+# *** empty log message ***
+#
+# Revision 1.19  2000/08/22 11:03:59  geoff
+# Fix a typo in the previous checkin.  Provide dummy definitions for eth
+# and thorn for tex/nroff, since ispell insists on having them.
+#
+# Revision 1.18  2000/08/22 10:52:25  geoff
+# *** empty log message ***
+#
+# Revision 1.17  1999/01/07 01:58:15  geoff
+# Update the copyright.
+#
+# Revision 1.16  1995/01/08  23:23:59  geoff
+# Add a NeXT to the defstringtype statement so that nextispell can
+# select it.
+#
+# Revision 1.15  1994/01/25  07:12:40  geoff
+# Get rid of all old RCS log lines in preparation for the 3.1 release.
+#
