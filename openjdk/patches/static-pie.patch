@@ -1,0 +1,92 @@
+diff --git a/make/autoconf/flags-ldflags.m4 b/make/autoconf/flags-ldflags.m4
+index 2aca285d3c3..48c5d723fea 100644
+--- a/make/autoconf/flags-ldflags.m4
++++ b/make/autoconf/flags-ldflags.m4
+@@ -124,7 +124,7 @@ AC_DEFUN([FLAGS_SETUP_LDFLAGS_HELPER],
+     # Enabling pie on 32 bit builds prevents the JVM from allocating a continuous
+     # java heap.
+     if test "x$OPENJDK_TARGET_CPU_BITS" != "x32"; then
+-      EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -pie"
++      EXECUTABLE_LDFLAGS="$EXECUTABLE_LDFLAGS -static-pie"
+     fi
+   fi
+ 
+diff --git a/make/autoconf/jdk-options.m4 b/make/autoconf/jdk-options.m4
+index 05bff5d5001..147bc0fff81 100644
+--- a/make/autoconf/jdk-options.m4
++++ b/make/autoconf/jdk-options.m4
+@@ -457,12 +457,12 @@ AC_DEFUN_ONCE([JDKOPT_SETUP_STATIC_BUILD],
+       CHECKING_MSG: [if static build is enabled],
+       CHECK_AVAILABLE: [
+         AC_MSG_CHECKING([if static build is available])
+-        if test "x$OPENJDK_TARGET_OS" = "xmacosx"; then
++#        if test "x$OPENJDK_TARGET_OS" = "xmacosx"; then
+           AC_MSG_RESULT([yes])
+-        else
+-          AC_MSG_RESULT([no])
+-          AVAILABLE=false
+-        fi
++#        else
++#          AC_MSG_RESULT([no])
++#          AVAILABLE=false
++#        fi
+       ],
+       IF_ENABLED: [
+         STATIC_BUILD_CFLAGS="-DSTATIC_BUILD=1"
+diff --git a/make/autoconf/libraries.m4 b/make/autoconf/libraries.m4
+index 7a1d8d80bb2..a037e3d3f15 100644
+--- a/make/autoconf/libraries.m4
++++ b/make/autoconf/libraries.m4
+@@ -48,7 +48,7 @@ AC_DEFUN_ONCE([LIB_DETERMINE_DEPENDENCIES],
+   else
+     # All other instances need X11, even if building headless only, libawt still
+     # needs X11 headers.
+-    NEEDS_LIB_X11=true
++    NEEDS_LIB_X11=false
+   fi
+ 
+   # Check if fontconfig is needed
+diff --git a/make/autoconf/toolchain.m4 b/make/autoconf/toolchain.m4
+index adb4e182dcc..38cff68a83a 100644
+--- a/make/autoconf/toolchain.m4
++++ b/make/autoconf/toolchain.m4
+@@ -188,7 +188,7 @@ AC_DEFUN([TOOLCHAIN_SETUP_FILENAME_PATTERNS],
+     STATIC_LIBRARY='lib[$]1.a'
+     OBJ_SUFFIX='.o'
+     EXECUTABLE_SUFFIX=''
+-    if test "x$OPENJDK_TARGET_OS" = xmacosx; then
++    # if test "x$OPENJDK_TARGET_OS" = xmacosx; then
+       # For full static builds, we're overloading the SHARED_LIBRARY
+       # variables in order to limit the amount of changes required.
+       # It would be better to remove SHARED and just use LIBRARY and
+@@ -198,11 +198,11 @@ AC_DEFUN([TOOLCHAIN_SETUP_FILENAME_PATTERNS],
+       if test "x$STATIC_BUILD" = xtrue; then
+         SHARED_LIBRARY='lib[$]1.a'
+         SHARED_LIBRARY_SUFFIX='.a'
+-      else
+-        SHARED_LIBRARY='lib[$]1.dylib'
+-        SHARED_LIBRARY_SUFFIX='.dylib'
++      # else
++      #  SHARED_LIBRARY='lib[$]1.dylib'
++      #  SHARED_LIBRARY_SUFFIX='.dylib'
+       fi
+-    fi
++    # fi
+   fi
+ 
+   AC_SUBST(LIBRARY_PREFIX)
+diff --git a/make/common/NativeCompilation.gmk b/make/common/NativeCompilation.gmk
+index 3a9e5a1a57e..6e49b86838e 100644
+--- a/make/common/NativeCompilation.gmk
++++ b/make/common/NativeCompilation.gmk
+@@ -53,8 +53,8 @@ define GetSymbols
+         $(CUT) -d ' ' -f 3 >>  $$(@D)/$$(basename $$(@F)).symbols || true;\
+   else \
+     $(ECHO) "Getting symbols from nm"; \
+-    $(NM) -m $$($1_TARGET) | $(GREP)  "__TEXT" | \
+-        $(EGREP) -v "non-external|private extern|__TEXT,__eh_frame" | \
++    $(ECHO) $$($1_TARGET); \
++    $(NM) $$($1_TARGET) | $(EGREP) " T | W " | \
+         $(SED) -e  's/.* //' > $$(@D)/$$(basename $$(@F)).symbols; \
+   fi
+ endef
