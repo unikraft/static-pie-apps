@@ -1,5 +1,13 @@
 #!/bin/bash
 
+DEBUG_ARGS=" --debug --debug-node --debug-lib"
+ARGS="--fully-static --enable-static --download=all --with-intl=full-icu"
+
+if [ $# -eq 1 ] && [ "$1" == "debug" ];
+then
+ARGS+=$DEBUG_ARGS
+fi
+
 # Clean up.
 rm -rf node-*
 
@@ -15,12 +23,12 @@ pushd node-v18.14.0 > /dev/null 2>&1 || exit
 
 sed -i 's/o\[\x27libraries\x27] += \[\x27-static\x27]/o\[\x27libraries\x27] += \[\x27-static-pie\x27]/' configure.py
 
-echo "Configuring nodejs ... "
-./configure --fully-static --enable-static --download=all --with-intl=full-icu
+echo -n "Configuring nodejs ... "
+./configure $ARGS &> /dev/null
 echo ""
 
-echo "Building nodejs ... "
-make -j$(nproc) &> /dev/null
+echo -n "Building nodejs ... "
+make -j"$(nproc)" &> /dev/null
 echo ""
 
 popd > /dev/null 2>&1 || exit
