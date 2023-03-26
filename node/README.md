@@ -23,3 +23,6 @@ If you want to rebuild it, run:
 ```
 $ ./build.sh
 ```
+
+Because github has a 150Mb per file limit and the resulting executable
+has 161MB, you can get the executable from [here](https://drive.google.com/file/d/1UVGvyZ1qiiesfm7eRwHhjDam9Jj5f8cH/view?usp=sharing).
