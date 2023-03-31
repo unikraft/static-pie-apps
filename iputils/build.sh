@@ -5,17 +5,18 @@ BUILD_VERSION=20221126
 # Clean up.
 rm -fr *.tar.gz
 
-echo -n "Downloading bc ... "
+echo -n "Downloading iputils ... "
 wget -O "${BUILD_VERSION}.tar.gz" -q https://github.com/iputils/iputils/archive/refs/tags/${BUILD_VERSION}.tar.gz
 echo ""
 
-echo -n "Unpacking bc ... "
+echo -n "Unpacking iputils ... "
 tar xzf "${BUILD_VERSION}.tar.gz"
 echo ""
 
-pushd "iputils-${BUILD_VERSION}" > /dev/null 2>&1
+SOURCE_DIR="iputils-${BUILD_VERSION}"
+pushd "${SOURCE_DIR}" > /dev/null 2>&1
 
-# echo "Patching bc build files ... "
+# echo "Patching iputils files ... "
 # patch -p1 < ../config.patch
 # echo ""
 
@@ -25,4 +26,7 @@ make
 
 popd > /dev/null 2>&1
 
-ln -fn "${BUILD_VERSION}/bc" .
+ln -fn "${SOURCE_DIR}/builddir/ping/ping" .
+ln -fn "${SOURCE_DIR}/builddir/arping" .
+ln -fn "${SOURCE_DIR}/builddir/tracepath" .
+ln -fn "${SOURCE_DIR}/builddir/clockdiff" .
