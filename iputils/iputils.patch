@@ -1,5 +1,5 @@
 --- configure	2022-11-26 01:07:21.000000000 +0200
-+++ configure	2023-03-31 12:26:22.745585398 +0300
++++ configure	2023-03-31 12:40:52.167300078 +0300
 @@ -1,14 +1,16 @@
  #!/bin/sh
  
@@ -18,11 +18,16 @@
  	echo '  More info: http://mesonbuild.com/Configuring-a-build-directory.html'
  	# See also: http://mesonbuild.com/howtox.html
 --- meson.build	2022-11-26 01:07:21.000000000 +0200
-+++ meson.build	2023-03-31 12:26:22.745585398 +0300
-@@ -5,28 +5,32 @@
++++ meson.build	2023-03-31 12:41:28.679222461 +0300
+@@ -1,32 +1,37 @@
+ # Copyright (c) Iputils Project, 2017-2021
+ 
+ project('iputils', 'c',
+ 	default_options : [
  		'c_std=c99',
  		'warning_level=3',
  		'localstatedir=var',
++		'USE_IDN=false',
  	],
  	meson_version : '>=0.40',
  	version : '20221126') # keep in sync with: git describe | awk -F- '{print $1}'
@@ -52,26 +57,3 @@
  run_tests = not get_option('SKIP_TESTS')
  
  prefix = get_option('prefix')
-@@ -117,21 +121,21 @@
- if gettext == true
- 	add_project_arguments(['-DGETTEXT_PACKAGE="iputils"'], language: 'c')
- 
- 	conf.set('ENABLE_NLS', 1, description : 'If set enable I18N.')
- 	conf.set_quoted('LOCALEDIR', localedir)
- 	subdir ('po')
- 	intl_dep += cc.find_library('intl', required : false)
- endif
- 
- idn = get_option('USE_IDN')
--if idn == true
-+if false
- 	idn_dep = dependency('libidn2', required : false)
- 	if idn_dep.found()
- 		add_project_arguments('-DUSE_IDN', language : 'c')
- 		conf.set('USE_IDN', 1,
- 			description : 'If set use Internationalized Domain Name library.')
- 	endif
- else
- 	idn_dep = dependency('disabler-appears-to-disable-executable-build', required : false)
- endif
- 
