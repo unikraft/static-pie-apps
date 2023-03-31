@@ -3,6 +3,7 @@
 
 BUILD_VERSION=20221126
 # Clean up.
+rm -fr iputils-*
 rm -fr *.tar.gz
 
 echo -n "Downloading iputils ... "
