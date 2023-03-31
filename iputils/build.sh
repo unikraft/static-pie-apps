@@ -16,9 +16,9 @@ echo ""
 SOURCE_DIR="iputils-${BUILD_VERSION}"
 pushd "${SOURCE_DIR}" > /dev/null 2>&1
 
-# echo "Patching iputils files ... "
-# patch -p1 < ../config.patch
-# echo ""
+echo "Patching iputils files ... "
+patch < ../iputils.patch
+echo ""
 
 echo "Building ... "
 ./configure --prefix=.

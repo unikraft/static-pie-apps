@@ -1,0 +1,77 @@
+--- configure	2022-11-26 01:07:21.000000000 +0200
++++ configure	2023-03-31 12:26:22.745585398 +0300
+@@ -1,14 +1,16 @@
+ #!/bin/sh
+ 
+ DIR=builddir
+ 
++export LDFLAGS="-static-pie"
++
+ echo "Using './$DIR' as the directory for build output"
+ echo
+ 
+ if [ $# -ne 0 ]; then
+ 	meson configure $DIR
+ 	echo
+ 	echo 'Configuration can be changed like this:'
+ 	echo "  meson configure $DIR -Dprefix=/usr"
+ 	echo '  More info: http://mesonbuild.com/Configuring-a-build-directory.html'
+ 	# See also: http://mesonbuild.com/howtox.html
+--- meson.build	2022-11-26 01:07:21.000000000 +0200
++++ meson.build	2023-03-31 12:26:22.745585398 +0300
+@@ -5,28 +5,32 @@
+ 		'c_std=c99',
+ 		'warning_level=3',
+ 		'localstatedir=var',
+ 	],
+ 	meson_version : '>=0.40',
+ 	version : '20221126') # keep in sync with: git describe | awk -F- '{print $1}'
+ 
+ cc = meson.get_compiler('c')
+ 
+ add_project_arguments(
++	'-fPIC',
+ 	'-include', 'config.h',
+ 	'-include', 'git-version.h',
+ 	language : 'c'
+ )
+ 
+ conf = configuration_data()
+ conf.set_quoted('PACKAGE_NAME', meson.project_name())
+ 
++conf.set('prefer_static', true)
++conf.set('default_library', 'static')
++
+ build_arping = get_option('BUILD_ARPING')
+ build_clockdiff = get_option('BUILD_CLOCKDIFF')
+ build_ping = get_option('BUILD_PING')
+ build_tracepath = get_option('BUILD_TRACEPATH')
+ 
+ build_mans = get_option('BUILD_MANS')
+ build_html_mans = get_option('BUILD_HTML_MANS')
+ run_tests = not get_option('SKIP_TESTS')
+ 
+ prefix = get_option('prefix')
+@@ -117,21 +121,21 @@
+ if gettext == true
+ 	add_project_arguments(['-DGETTEXT_PACKAGE="iputils"'], language: 'c')
+ 
+ 	conf.set('ENABLE_NLS', 1, description : 'If set enable I18N.')
+ 	conf.set_quoted('LOCALEDIR', localedir)
+ 	subdir ('po')
+ 	intl_dep += cc.find_library('intl', required : false)
+ endif
+ 
+ idn = get_option('USE_IDN')
+-if idn == true
++if false
+ 	idn_dep = dependency('libidn2', required : false)
+ 	if idn_dep.found()
+ 		add_project_arguments('-DUSE_IDN', language : 'c')
+ 		conf.set('USE_IDN', 1,
+ 			description : 'If set use Internationalized Domain Name library.')
+ 	endif
+ else
+ 	idn_dep = dependency('disabler-appears-to-disable-executable-build', required : false)
+ endif
+ 
