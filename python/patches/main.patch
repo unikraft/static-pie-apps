@@ -1,0 +1,11 @@
+--- Programs/python.c	2022-06-06 14:53:30.000000000 +0300
++++ Programs/python2.c	2022-07-23 16:09:47.034180771 +0300
+@@ -12,6 +12,8 @@
+ int
+ main(int argc, char **argv)
+ {
++    setenv("PYTHONPATH", "/", 0);
++    setenv("PYTHONHOME", "/", 0);
+     return Py_BytesMain(argc, argv);
+ }
+ #endif
