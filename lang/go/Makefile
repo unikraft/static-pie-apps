@@ -1,6 +1,6 @@
 .PHONY: all clean
 
-GO = /usr/bin/go
+GO ?= /usr/bin/go
 
 all: server client helloworld
 
