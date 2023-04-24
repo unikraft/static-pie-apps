@@ -1,0 +1,5 @@
+202c202,203
+< 	CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -o ./pkg/bin/linux_$(GOARCH) -ldflags "$(GOLDFLAGS)" -tags "$(GOTAGS)"
+---
+> 	GOLDFLAGS="$(GOLDFLAGS) -linkmode external -extldflags '-static-pie'"
+> 	CGO_ENABLED=0 GOOS=linux GOARCH=$(GOARCH) go build -o ./pkg/bin -buildmode=pie -ldflags "$(GOLDFLAGS)" -tags "$(GOTAGS)"
