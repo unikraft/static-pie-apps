@@ -1,0 +1,30 @@
+diff --git a/unix/Makefile b/unix/Makefile
+index abd0c44..d3fe778 100644
+--- a/unix/Makefile
++++ b/unix/Makefile
+@@ -61,6 +61,7 @@ CFLAGS_NOOPT = -I. -DUNIX $(LOCAL_ZIP)
+ CFLAGS = -O2 $(CFLAGS_NOOPT)
+ LFLAGS1 =
+ LFLAGS2 = -s
++LDFLAGS = -static-pie -static-libgcc
+ 
+ # object file lists
+ OBJZ = zip.o zipfile.o zipup.o fileio.o util.o globals.o crypt.o ttyio.o \
+@@ -125,13 +126,13 @@ zips: $(ZIPS)
+ zipsman: $(ZIPS) $(ZIPMANUALs)
+ 
+ zip$E: $(OBJZ) $(OBJI) $(OBJA) $(LIB_BZ)
+-	$(BIND) -o zip$E $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2)
++	$(BIND) -o zip$E $(LFLAGS1) $(OBJZ) $(OBJI) $(OBJA) $(LFLAGS2) $(LDFLAGS)
+ zipnote$E: $(OBJN)
+-	$(BIND) -o zipnote$E $(LFLAGS1) $(OBJN) $(LFLAGS2)
++	$(BIND) -o zipnote$E $(LFLAGS1) $(OBJN) $(LFLAGS2) $(LDFLAGS)
+ zipcloak$E: $(OBJC) $(OCRCTB)
+-	$(BIND) -o zipcloak$E $(LFLAGS1) $(OBJC) $(LFLAGS2)
++	$(BIND) -o zipcloak$E $(LFLAGS1) $(OBJC) $(LFLAGS2) $(LDFLAGS)
+ zipsplit$E: $(OBJS)
+-	$(BIND) -o zipsplit$E $(LFLAGS1) $(OBJS) $(LFLAGS2)
++	$(BIND) -o zipsplit$E $(LFLAGS1) $(OBJS) $(LFLAGS2) $(LDFLAGS)
+ 
+ $(ZIPMANUAL): man/zip.1
+ 	nroff -man man/zip.1 | col -bx | uniq > $(ZIPMANUAL)
