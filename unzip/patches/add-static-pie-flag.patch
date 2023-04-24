@@ -1,0 +1,29 @@
+diff --git a/unix/Makefile b/unix/Makefile
+index ab32270..e00aa7b 100644
+--- a/unix/Makefile
++++ b/unix/Makefile
+@@ -53,6 +53,7 @@ CF = $(CFLAGS) $(CF_NOOPT)
+ LFLAGS1 =
+ LF = -o unzip$E $(LFLAGS1)
+ LF2 = -s
++LDFLAGS = -static-pie -static-libgcc
+ 
+ # UnZipSFX flags
+ SL = -o unzipsfx$E $(LFLAGS1)
+@@ -280,13 +281,13 @@ unzipsdocs:	unzips docs
+ # make utilities if default:  change "unzip$E:" to "unzip$E:&"
+ 
+ unzip$E:	$(OBJS) $(LIBBZ2)	# add `&' for parallel makes
+-	$(LD) $(LF) -L$(IZ_BZIP2) $(LOBJS) $(L_BZ2) $(LF2)
++	$(LD) $(LF) -L$(IZ_BZIP2) $(LOBJS) $(L_BZ2) $(LF2) $(LDFLAGS)
+ 
+ unzipsfx$E:	$(OBJX)			# add `&' for parallel makes
+-	$(LD) $(SL) $(LOBJX) $(SL2)
++	$(LD) $(SL) $(LOBJX) $(SL2) $(LDFLAGS)
+ 
+ funzip$E:	$(OBJF)			# add `&' for parallel makes
+-	$(LD) $(FL) $(OBJF) $(FL2)
++	$(LD) $(FL) $(OBJF) $(FL2) $(LDFLAGS)
+ 
+ zipinfo$E:	unzip$E			# `&' is pointless here...
+ 	@echo\
