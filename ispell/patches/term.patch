@@ -1,0 +1,22 @@
+--- term.c	2020-12-31 08:33:42.003282125 +0200
++++ term2.c	2022-08-07 17:38:11.499860292 +0300
+@@ -168,8 +168,8 @@
+ 
+ void backup ()
+     {
+-    if (BC)
+-	tputs (BC, 1, iputch);
++    if (bc)
++	tputs (bc, 1, iputch);
+     else
+ 	(void) putchar ('\b');
+     }
+@@ -218,7 +218,7 @@
+ 
+     tgetent (termcap, getenv ("TERM"));
+     termptr = termstr;
+-    BC = tgetstr ("bc", &termptr);
++    bc = tgetstr ("bc", &termptr);
+     cd = tgetstr ("cd", &termptr);
+     cl = tgetstr ("cl", &termptr);
+     cm = tgetstr ("cm", &termptr);

@@ -1,0 +1,11 @@
+--- ispell.h	2022-02-06 02:15:31.217196776 +0200
++++ ispell2.h	2022-08-07 17:35:45.282349454 +0300
+@@ -585,7 +585,7 @@
+ # define EXTERN extern
+ #endif
+ 
+-EXTERN char *	BC;	/* backspace if not ^H */
++EXTERN char *	bc;	/* backspace if not ^H */
+ EXTERN char *	cd;	/* clear to end of display */
+ EXTERN char *	cl;	/* clear display */
+ EXTERN char *	cm;	/* cursor movement */
